@@ -14,7 +14,7 @@
 #define U2F_CNT_FILE      U2F_DATA_FOLDER "cnt.u2f"
 
 #define U2F_DATA_FILE_ENCRYPTION_KEY_SLOT_FACTORY 2
-#define U2F_DATA_FILE_ENCRYPTION_KEY_SLOT_UNIQUE  FURI_HAL_CRYPTO_ENCLAVE_UNIQUE_KEY_SLOT
+#define U2F_DATA_FILE_ENCRYPTION_KEY_SLOT_UNIQUE  FURI_HAL_CRYPTO_ENCLAVE_UNIQUE_KEY_SLOT // 这个key slot是在furi_hal_crypto_enclave_ensure_key函数中定义的，用于加密真正用于U2F的key
 
 #define U2F_CERT_STOCK 0 // Stock certificate, private key is encrypted with factory key
 #define U2F_CERT_USER  1 // User certificate, private key is encrypted with unique key
@@ -205,6 +205,7 @@ bool u2f_data_cert_key_load(uint8_t* cert_key) {
                 break;
             }
 
+            //按照cert_type的值，选择不同的key_slot
             if(cert_type == U2F_CERT_STOCK) {
                 key_slot = U2F_DATA_FILE_ENCRYPTION_KEY_SLOT_FACTORY;
             } else if(cert_type == U2F_CERT_USER) {

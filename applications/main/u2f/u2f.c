@@ -41,6 +41,7 @@ typedef struct {
     uint8_t format;
     uint8_t xy[64];
 } FURI_PACKED U2fPubKey;
+// 这里可能需要注意
 _Static_assert(sizeof(U2fPubKey) == U2F_EC_POINT_SIZE, "U2fPubKey size mismatch");
 
 typedef struct {
